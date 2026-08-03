@@ -1,0 +1,14 @@
+[versions]
+kotlin = "2.4.10"
+compose = "1.11.1"
+family = "0.1.0-SNAPSHOT"
+
+[libraries]
+advanced-hello-world-kmp-core = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-core", version.ref = "family" }
+advanced-hello-world-compose-core = { module = "io.github.yutakax17.advancedhelloworld:compose-advanced-hello-world-core", version.ref = "family" }
+advanced-hello-world-kmp-messages = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-messages", version.ref = "family" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
