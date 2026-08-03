@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.compose)
+    alias(libs.plugins.android.kmp.library)
     `maven-publish`
 }
 
@@ -11,6 +12,12 @@ version = rootProject.version
 kotlin {
     explicitApi()
     jvm()
+    android {
+        namespace = "io.github.yutakax17.advancedhelloworld.compose.messages"
+        compileSdk = 37
+        minSdk = 24
+        androidResources.enable = true
+    }
 
     sourceSets {
         commonMain.dependencies {
