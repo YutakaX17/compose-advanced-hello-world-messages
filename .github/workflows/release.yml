@@ -83,7 +83,7 @@ jobs:
           generate_release_notes: true
           fail_on_unmatched_files: true
           files: |
-            release/*.tar.gz
-            release/sbom.spdx.json
-            release/metadata.json
-            release/SHA256SUMS
+            compose-advanced-hello-world-messages/release/*.tar.gz
+            compose-advanced-hello-world-messages/release/sbom.spdx.json
+            compose-advanced-hello-world-messages/release/metadata.json
+            compose-advanced-hello-world-messages/release/SHA256SUMS

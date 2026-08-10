@@ -3,8 +3,11 @@
 Compose Multiplatform message presentation and feature registration for the
 Advanced Hello World mobile repository family.
 
-It renders only local repository state. Networking, SQL, outbox processing, and
-Android scheduling remain outside this package.
+It owns the shared message presentation state holder and unidirectional event
+flow over the KMP messages repository. The UI renders local messages, offline
+submission, refresh, retry, and synchronization feedback with the shared
+Compose Core state and accessibility foundations. Networking, SQL, outbox
+processing, and Android scheduling remain outside this package.
 
 ## Published dependency graph
 

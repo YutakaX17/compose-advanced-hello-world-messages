@@ -9,11 +9,16 @@ binary-compatibility = "0.18.1"
 dependency-analysis = "3.17.0"
 dependency-check = "12.2.2"
 licensee = "1.14.1"
+coroutines = "1.10.2"
 
 [libraries]
 advanced-hello-world-kmp-core = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-core", version.ref = "family" }
 advanced-hello-world-compose-core = { module = "io.github.yutakax17.advancedhelloworld:compose-advanced-hello-world-core", version.ref = "family" }
 advanced-hello-world-kmp-messages = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-messages", version.ref = "family" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose" }
+compose-desktop-linux = { module = "org.jetbrains.compose.desktop:desktop-jvm-linux-x64", version.ref = "compose" }
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }

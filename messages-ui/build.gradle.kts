@@ -33,12 +33,16 @@ kotlin {
             api(compose.runtime)
             api(compose.foundation)
             api(compose.material3)
+            api(libs.kotlinx.coroutines.core)
         }
         commonTest.dependencies {
             implementation(kotlin("test"))
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.compose.ui.test)
         }
         jvmTest.dependencies {
             implementation(kotlin("test-junit"))
+            implementation(libs.compose.desktop.linux)
         }
     }
 }
@@ -96,6 +100,7 @@ dependencyAnalysis {
         onUnusedDependencies {
             exclude(libs.advanced.hello.world.kmp.core)
             exclude(libs.advanced.hello.world.compose.core)
+            exclude(libs.kotlinx.coroutines.core)
             exclude("org.jetbrains.compose.runtime:runtime")
             exclude("org.jetbrains.compose.foundation:foundation")
             exclude("org.jetbrains.compose.material3:material3")
@@ -122,6 +127,8 @@ dependencyAnalysis {
             exclude("org.jetbrains.compose.ui:ui-graphics-desktop")
             exclude("org.jetbrains.compose.ui:ui-text-desktop")
             exclude("org.jetbrains.compose.ui:ui-unit-desktop")
+            exclude("org.jetbrains.compose.ui:ui-test-desktop")
+            exclude("org.jetbrains.kotlinx:kotlinx-coroutines-test")
             exclude("io.github.yutakax17.advancedhelloworld:core-android")
             exclude("io.github.yutakax17.advancedhelloworld:messages-android")
             exclude("io.github.yutakax17.advancedhelloworld:ui-android")

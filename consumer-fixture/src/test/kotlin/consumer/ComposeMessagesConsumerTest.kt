@@ -1,29 +1,49 @@
 package consumer
 
-import io.github.yutakax17.advancedhelloworld.compose.messages.MessagesActions
+import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.v2.runComposeUiTest
 import io.github.yutakax17.advancedhelloworld.compose.messages.MessagesFeatureFactory
-import io.github.yutakax17.advancedhelloworld.compose.messages.MessagesState
+import io.github.yutakax17.advancedhelloworld.compose.messages.MessagesInteractor
+import io.github.yutakax17.advancedhelloworld.compose.messages.MessagesStateHolder
 import io.github.yutakax17.advancedhelloworld.compose.messages.MessagesUiDependencies
+import io.github.yutakax17.advancedhelloworld.core.SyncResult
+import io.github.yutakax17.advancedhelloworld.messages.CreateMessageResult
+import io.github.yutakax17.advancedhelloworld.messages.Message
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 import kotlin.test.Test
-import kotlin.test.assertEquals
 
+@OptIn(ExperimentalTestApi::class)
 class ComposeMessagesConsumerTest {
     @Test
-    fun resolvesPublishedFeatureContract() {
+    fun rendersPublishedFeatureArtifact() = runComposeUiTest {
+        val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
         val feature = MessagesFeatureFactory.create(
-            MessagesUiDependencies(MessagesState(), NoOpActions),
+            MessagesUiDependencies(MessagesStateHolder(EmptyInteractor, scope)),
         )
 
-        assertEquals("messages", feature.id)
+        try {
+            setContent { feature.destinations.single().content() }
+            onNodeWithText("No messages yet").assertIsDisplayed()
+            onNodeWithText("Refresh").assertIsDisplayed()
+        } finally {
+            scope.cancel()
+        }
     }
 }
 
-private object NoOpActions : MessagesActions {
-    override fun updateDraft(text: String) = Unit
+private object EmptyInteractor : MessagesInteractor {
+    override fun observeMessages(): Flow<List<Message>> = flowOf(emptyList())
 
-    override fun submit() = Unit
+    override suspend fun createMessage(text: String): CreateMessageResult = error("Not used")
 
-    override fun refresh() = Unit
+    override suspend fun refresh(): SyncResult = SyncResult.Success
 
-    override fun retry(localId: String) = Unit
+    override suspend fun retry(localId: String): SyncResult = SyncResult.Success
 }

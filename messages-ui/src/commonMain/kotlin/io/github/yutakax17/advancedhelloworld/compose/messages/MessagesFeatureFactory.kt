@@ -1,5 +1,7 @@
 package io.github.yutakax17.advancedhelloworld.compose.messages
 
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import io.github.yutakax17.advancedhelloworld.compose.core.FeatureDestination
 import io.github.yutakax17.advancedhelloworld.compose.core.FeatureUi
 import io.github.yutakax17.advancedhelloworld.compose.core.FeatureUiFactory
@@ -9,7 +11,8 @@ public object MessagesFeatureFactory : FeatureUiFactory<MessagesUiDependencies> 
         id = "messages",
         destinations = listOf(
             FeatureDestination(route = "/", title = "Messages") {
-                MessagesScreen(dependencies.state, dependencies.actions)
+                val state by dependencies.stateHolder.state.collectAsState()
+                MessagesScreen(state, dependencies.stateHolder::onEvent)
             },
         ),
     )
