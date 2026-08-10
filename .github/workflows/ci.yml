@@ -49,10 +49,15 @@ jobs:
           ./kmp-advanced-hello-world-messages/gradlew --no-daemon -p kmp-advanced-hello-world-messages -PreleaseVersion=0.1.0 :messages:publishToMavenLocal
       - name: Quality, tests, API, dependencies, and publications
         working-directory: compose-advanced-hello-world-messages
-        run: >
-          ./gradlew --no-daemon
-          spotlessCheck detekt apiCheck buildHealth
-          check assemble publishAllPublicationsToLocalRepository
+        run: |
+          if ! ./gradlew --no-daemon \
+            spotlessCheck detekt apiCheck buildHealth \
+            check assemble publishAllPublicationsToLocalRepository; then
+            if [[ -f build/reports/dependency-analysis/build-health-report.txt ]]; then
+              cat build/reports/dependency-analysis/build-health-report.txt
+            fi
+            exit 1
+          fi
       - name: Validate MIT publication metadata
         working-directory: compose-advanced-hello-world-messages
         run: |
