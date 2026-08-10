@@ -7,7 +7,7 @@ import io.github.yutakax17.advancedhelloworld.messages.MessageSyncState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -30,12 +30,12 @@ class MessagesFeatureTest {
     fun observesRepositoryAndSubmitsNormalizedDraft() = runTest {
         val interactor = FakeInteractor()
         val holder = MessagesStateHolder(interactor, backgroundScope)
-        advanceUntilIdle()
+        runCurrent()
 
         interactor.messages.value = listOf(message("local-1", MessageSyncState.PENDING))
         holder.onEvent(MessagesEvent.DraftChanged("  hello offline  "))
         holder.onEvent(MessagesEvent.Submit)
-        advanceUntilIdle()
+        runCurrent()
 
         assertEquals("hello offline", interactor.createdText)
         assertEquals("", holder.state.value.draftText)
@@ -47,7 +47,7 @@ class MessagesFeatureTest {
     fun validatesDraftAndSerializesRefreshEvents() = runTest {
         val interactor = FakeInteractor()
         val holder = MessagesStateHolder(interactor, backgroundScope)
-        advanceUntilIdle()
+        runCurrent()
 
         holder.onEvent(MessagesEvent.Submit)
         assertEquals("Enter a message before saving.", holder.state.value.validationMessage)
@@ -56,7 +56,7 @@ class MessagesFeatureTest {
         assertEquals("Message must be 500 characters or fewer.", holder.state.value.validationMessage)
 
         holder.onEvent(MessagesEvent.Refresh)
-        advanceUntilIdle()
+        runCurrent()
         assertEquals(1, interactor.refreshCount)
         assertFalse(holder.state.value.isRefreshing)
         assertEquals("Messages are up to date.", holder.state.value.notice?.text)
@@ -66,10 +66,10 @@ class MessagesFeatureTest {
     fun exposesRetryFailureAsErrorFeedback() = runTest {
         val interactor = FakeInteractor(retryResult = SyncResult.Retry("Connect and try again."))
         val holder = MessagesStateHolder(interactor, backgroundScope)
-        advanceUntilIdle()
+        runCurrent()
 
         holder.onEvent(MessagesEvent.Retry("local-2"))
-        advanceUntilIdle()
+        runCurrent()
 
         assertEquals("local-2", interactor.retriedId)
         assertIs<MessagesNoticeKind>(holder.state.value.notice?.kind)
