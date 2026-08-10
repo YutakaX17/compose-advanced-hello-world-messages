@@ -121,6 +121,7 @@ private fun MessagesContent(
 ) {
     when {
         state.isLoading -> LoadingState(message = "Loading messages")
+
         state.loadError != null -> ErrorState(
             message = state.loadError,
             onRetry = { onEvent(MessagesEvent.Refresh) },
@@ -148,7 +149,9 @@ private fun MessageRow(
         Text(message.text)
         when (message.syncState) {
             MessageSyncState.PENDING -> PendingState(message = "Waiting to sync")
+
             MessageSyncState.SYNCING -> LoadingState(message = "Syncing")
+
             MessageSyncState.SYNCED -> Text(
                 "Synced",
                 modifier = Modifier.semantics { stateDescription = "Message synced" },
