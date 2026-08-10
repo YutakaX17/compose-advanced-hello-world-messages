@@ -4,6 +4,7 @@
 
 - Add the message list, composer, refresh, retry, and synchronization-state UI.
 - Add repository-backed presentation state and unidirectional message events.
+- Recover repository observation after a successful load-error retry.
 - Render shared accessible loading, empty, error, pending, and retry states.
 - Exercise Compose behavior and published-artifact rendering in UI tests.
 - Correct nested-checkout release artifact upload paths.

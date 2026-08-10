@@ -7,6 +7,7 @@ import io.github.yutakax17.advancedhelloworld.messages.MessageRepository
 import io.github.yutakax17.advancedhelloworld.messages.MessageValidation
 import io.github.yutakax17.advancedhelloworld.messages.validateMessageText
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -74,6 +75,7 @@ public class MessagesStateHolder(
     private val scope: CoroutineScope,
 ) {
     private val mutableState: MutableStateFlow<MessagesState> = MutableStateFlow(MessagesState())
+    private var observationJob: Job? = null
 
     public val state: StateFlow<MessagesState> = mutableState.asStateFlow()
 
@@ -91,7 +93,9 @@ public class MessagesStateHolder(
     }
 
     private fun observeMessages() {
-        scope.launch {
+        observationJob?.cancel()
+        mutableState.update { it.copy(isLoading = true, loadError = null) }
+        observationJob = scope.launch {
             interactor.observeMessages()
                 .catch {
                     mutableState.update {
@@ -158,12 +162,16 @@ public class MessagesStateHolder(
 
     private fun refresh() {
         if (mutableState.value.isRefreshing) return
+        val shouldRecoverObservation = mutableState.value.loadError != null
         mutableState.update { it.copy(isRefreshing = true, notice = null) }
         scope.launch {
             val result = runCatching { interactor.refresh() }
                 .getOrElse { SyncResult.Retry("Unable to refresh messages.") }
             mutableState.update {
                 it.copy(isRefreshing = false, notice = result.toNotice("Messages are up to date."))
+            }
+            if (shouldRecoverObservation && result == SyncResult.Success) {
+                observeMessages()
             }
         }
     }
