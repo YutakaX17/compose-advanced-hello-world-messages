@@ -1,0 +1,33 @@
+[versions]
+kotlin = "2.4.10"
+compose = "1.11.1"
+family = "0.1.0"
+agp = "9.2.0"
+spotless = "8.8.0"
+detekt = "1.23.8"
+binary-compatibility = "0.18.1"
+dependency-analysis = "3.17.0"
+dependency-check = "12.2.2"
+licensee = "1.14.1"
+coroutines = "1.10.2"
+
+[libraries]
+advanced-hello-world-kmp-core = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-core", version.ref = "family" }
+advanced-hello-world-compose-core = { module = "io.github.yutakax17.advancedhelloworld:compose-advanced-hello-world-core", version.ref = "family" }
+advanced-hello-world-kmp-messages = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-messages", version.ref = "family" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose" }
+compose-desktop-linux = { module = "org.jetbrains.compose.desktop:desktop-jvm-linux-x64", version.ref = "compose" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+binary-compatibility = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binary-compatibility" }
+dependency-analysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependency-analysis" }
+dependency-check = { id = "org.owasp.dependencycheck", version.ref = "dependency-check" }
+licensee = { id = "app.cash.licensee", version.ref = "licensee" }

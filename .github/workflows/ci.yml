@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          path: compose-advanced-hello-world-messages
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: YutakaX17/kmp-advanced-hello-world-core
+          ref: ffe254219bd333395942c2736af9aa29c97e0556
+          path: kmp-advanced-hello-world-core
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: YutakaX17/compose-advanced-hello-world-core
+          ref: 87ab26ef9fb0bf338874d256422b49b369981c0a
+          path: compose-advanced-hello-world-core
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: YutakaX17/kmp-advanced-hello-world-messages
+          ref: d7ce9a21953cb9854952ce80a25df8508b606ed5
+          path: kmp-advanced-hello-world-messages
+      - uses: actions/setup-java@d7793b545071e98d581d3bf084a51c3213318a07 # v4
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: gradle/actions/setup-gradle@06832c7b30a0129d7fb559bcc6e43d26f6374244 # v4
+        with:
+          validate-wrappers: true
+      - name: Install immutable family dependencies
+        run: |
+          ./kmp-advanced-hello-world-core/gradlew --no-daemon -p kmp-advanced-hello-world-core -PreleaseVersion=0.1.0 :core:publishToMavenLocal
+          ./compose-advanced-hello-world-core/gradlew --no-daemon -p compose-advanced-hello-world-core -PreleaseVersion=0.1.0 :ui:publishToMavenLocal
+          ./kmp-advanced-hello-world-messages/gradlew --no-daemon -p kmp-advanced-hello-world-messages -PreleaseVersion=0.1.0 :messages:publishToMavenLocal
+      - name: Quality, tests, API, dependencies, and publications
+        working-directory: compose-advanced-hello-world-messages
+        run: |
+          if ! ./gradlew --no-daemon \
+            spotlessCheck detekt apiCheck buildHealth \
+            check assemble publishAllPublicationsToLocalRepository; then
+            if [[ -f build/reports/dependency-analysis/build-health-report.txt ]]; then
+              cat build/reports/dependency-analysis/build-health-report.txt
+            fi
+            exit 1
+          fi
+      - name: Validate MIT publication metadata
+        working-directory: compose-advanced-hello-world-messages
+        run: |
+          mapfile -t poms < <(find messages-ui -path '*/publications/*/pom-default.xml')
+          test "${#poms[@]}" -gt 0
+          for pom in "${poms[@]}"; do
+            grep -q '<name>MIT License</name>' "$pom"
+            grep -q '<url>https://opensource.org/license/mit</url>' "$pom"
+          done
+      - name: Resolve publication from clean consumer
+        working-directory: compose-advanced-hello-world-messages
+        run: ./gradlew --no-daemon -p consumer-fixture clean test

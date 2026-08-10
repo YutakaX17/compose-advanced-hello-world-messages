@@ -1,0 +1,11 @@
+build:
+  maxIssues: 0
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated:
+      - Composable
+
+style:
+  MagicNumber:
+    active: false
