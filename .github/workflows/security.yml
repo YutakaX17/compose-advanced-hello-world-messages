@@ -79,7 +79,9 @@ jobs:
 
   dependency-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    # A cold NVD database bootstrap can exceed one hour with the deliberately
+    # conservative 6-second API delay. Subsequent runs restore the cached data.
+    timeout-minutes: 120
     env:
       NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
     steps:
