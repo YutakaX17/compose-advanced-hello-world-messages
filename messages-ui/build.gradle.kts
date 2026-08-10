@@ -100,6 +100,7 @@ dependencyAnalysis {
         onUnusedDependencies {
             exclude(libs.advanced.hello.world.kmp.core)
             exclude(libs.advanced.hello.world.compose.core)
+            exclude(libs.compose.ui.test)
             exclude(libs.kotlinx.coroutines.core)
             exclude("org.jetbrains.compose.runtime:runtime")
             exclude("org.jetbrains.compose.foundation:foundation")
