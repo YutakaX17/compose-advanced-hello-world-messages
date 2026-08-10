@@ -1,0 +1,60 @@
+public final class io/github/yutakax17/advancedhelloworld/compose/messages/ComposableSingletons$MessagesScreenKt {
+	public static final field INSTANCE Lio/github/yutakax17/advancedhelloworld/compose/messages/ComposableSingletons$MessagesScreenKt;
+	public fun <init> ()V
+	public final fun getLambda$-451847834$io_github_yutakax17_advancedhelloworld_messages_ui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$-551474212$io_github_yutakax17_advancedhelloworld_messages_ui ()Lkotlin/jvm/functions/Function3;
+	public final fun getLambda$80529494$io_github_yutakax17_advancedhelloworld_messages_ui ()Lkotlin/jvm/functions/Function2;
+}
+
+public abstract interface class io/github/yutakax17/advancedhelloworld/compose/messages/MessagesActions {
+	public abstract fun refresh ()V
+	public abstract fun retry (Ljava/lang/String;)V
+	public abstract fun submit ()V
+	public abstract fun updateDraft (Ljava/lang/String;)V
+}
+
+public final class io/github/yutakax17/advancedhelloworld/compose/messages/MessagesFeatureFactory : io/github/yutakax17/advancedhelloworld/compose/core/FeatureUiFactory {
+	public static final field $stable I
+	public static final field INSTANCE Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesFeatureFactory;
+	public fun create (Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesUiDependencies;)Lio/github/yutakax17/advancedhelloworld/compose/core/FeatureUi;
+	public synthetic fun create (Ljava/lang/Object;)Lio/github/yutakax17/advancedhelloworld/compose/core/FeatureUi;
+}
+
+public final class io/github/yutakax17/advancedhelloworld/compose/messages/MessagesScreenKt {
+	public static final fun MessagesScreen (Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesActions;Landroidx/compose/runtime/Composer;I)V
+}
+
+public final class io/github/yutakax17/advancedhelloworld/compose/messages/MessagesState {
+	public static final field $stable I
+	public fun <init> ()V
+	public fun <init> (Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/lang/String;
+	public final fun component3 ()Z
+	public final fun component4 ()Ljava/lang/String;
+	public final fun copy (Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;)Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;
+	public static synthetic fun copy$default (Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;Ljava/util/List;Ljava/lang/String;ZLjava/lang/String;ILjava/lang/Object;)Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDraftText ()Ljava/lang/String;
+	public final fun getMessages ()Ljava/util/List;
+	public final fun getUserMessage ()Ljava/lang/String;
+	public fun hashCode ()I
+	public final fun isRefreshing ()Z
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class io/github/yutakax17/advancedhelloworld/compose/messages/MessagesUiDependencies {
+	public static final field $stable I
+	public fun <init> (Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesActions;)V
+	public final fun component1 ()Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;
+	public final fun component2 ()Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesActions;
+	public final fun copy (Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesActions;)Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesUiDependencies;
+	public static synthetic fun copy$default (Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesUiDependencies;Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesActions;ILjava/lang/Object;)Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesUiDependencies;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getActions ()Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesActions;
+	public final fun getState ()Lio/github/yutakax17/advancedhelloworld/compose/messages/MessagesState;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+

@@ -23,7 +23,7 @@ import io.github.yutakax17.advancedhelloworld.messages.MessageSyncState
 public fun MessagesScreen(
     state: MessagesState,
     actions: MessagesActions,
-): Unit {
+) {
     Column(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -61,13 +61,16 @@ public fun MessagesScreen(
 }
 
 @Composable
-private fun MessageRow(message: Message, retry: (String) -> Unit): Unit {
+private fun MessageRow(message: Message, retry: (String) -> Unit) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(message.text)
         when (message.syncState) {
             MessageSyncState.PENDING -> Text("Waiting to sync")
+
             MessageSyncState.SYNCING -> Text("Syncing")
+
             MessageSyncState.SYNCED -> Text("Synced")
+
             MessageSyncState.FAILED_PERMANENT -> {
                 Button(onClick = { retry(message.localId) }) {
                     Text("Retry")

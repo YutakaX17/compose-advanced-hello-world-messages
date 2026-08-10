@@ -1,5 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.1.0
 
-- Bootstrap message composer, list, synchronization state, and feature factory.
+- Add the message list, composer, refresh, retry, and synchronization-state UI.
+- Export `MessagesFeatureFactory` through the Compose core feature contract.
+- Publish JVM, Android, and Kotlin Multiplatform variants with MIT metadata and
+  detached signatures.
+- Add immutable dependency validation, clean-consumer verification, security
+  scanning, SBOM generation, and reproducible release metadata.
