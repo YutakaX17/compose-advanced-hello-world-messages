@@ -42,6 +42,18 @@ public fun MessagesScreen(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
+        MessageComposer(state = state, onEvent = onEvent)
+        state.notice?.let { notice -> NoticeFeedback(notice) }
+        MessagesContent(state = state, onEvent = onEvent)
+    }
+}
+
+@Composable
+private fun MessageComposer(
+    state: MessagesState,
+    onEvent: (MessagesEvent) -> Unit,
+) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         OutlinedTextField(
             value = state.draftText,
             onValueChange = { onEvent(MessagesEvent.DraftChanged(it)) },
@@ -93,25 +105,26 @@ public fun MessagesScreen(
                 }
             }
         }
-        state.notice?.let { notice ->
-            Text(
-                notice.text,
-                color = if (notice.kind == MessagesNoticeKind.ERROR) {
-                    MaterialTheme.colorScheme.error
-                } else {
-                    MaterialTheme.colorScheme.onSurface
-                },
-                modifier = Modifier.semantics {
-                    liveRegion = if (notice.kind == MessagesNoticeKind.ERROR) {
-                        LiveRegionMode.Assertive
-                    } else {
-                        LiveRegionMode.Polite
-                    }
-                },
-            )
-        }
-        MessagesContent(state = state, onEvent = onEvent)
     }
+}
+
+@Composable
+private fun NoticeFeedback(notice: MessagesNotice) {
+    Text(
+        notice.text,
+        color = if (notice.kind == MessagesNoticeKind.ERROR) {
+            MaterialTheme.colorScheme.error
+        } else {
+            MaterialTheme.colorScheme.onSurface
+        },
+        modifier = Modifier.semantics {
+            liveRegion = if (notice.kind == MessagesNoticeKind.ERROR) {
+                LiveRegionMode.Assertive
+            } else {
+                LiveRegionMode.Polite
+            }
+        },
+    )
 }
 
 @Composable
