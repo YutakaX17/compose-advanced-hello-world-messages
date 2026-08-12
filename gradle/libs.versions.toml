@@ -1,7 +1,8 @@
 [versions]
 kotlin = "2.4.10"
 compose = "1.11.1"
-family = "0.1.0"
+core-family = "0.1.0"
+kmp-messages = "0.2.0"
 agp = "9.2.0"
 spotless = "8.8.0"
 detekt = "1.23.8"
@@ -12,9 +13,9 @@ licensee = "1.14.1"
 coroutines = "1.10.2"
 
 [libraries]
-advanced-hello-world-kmp-core = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-core", version.ref = "family" }
-advanced-hello-world-compose-core = { module = "io.github.yutakax17.advancedhelloworld:compose-advanced-hello-world-core", version.ref = "family" }
-advanced-hello-world-kmp-messages = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-messages", version.ref = "family" }
+advanced-hello-world-kmp-core = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-core", version.ref = "core-family" }
+advanced-hello-world-compose-core = { module = "io.github.yutakax17.advancedhelloworld:compose-advanced-hello-world-core", version.ref = "core-family" }
+advanced-hello-world-kmp-messages = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-messages", version.ref = "kmp-messages" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 compose-ui-test = { module = "org.jetbrains.compose.ui:ui-test", version.ref = "compose" }

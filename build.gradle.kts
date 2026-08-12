@@ -17,7 +17,7 @@ plugins {
 }
 
 group = "io.github.yutakax17.advancedhelloworld"
-version = providers.gradleProperty("releaseVersion").getOrElse("0.1.0-SNAPSHOT")
+version = providers.gradleProperty("releaseVersion").getOrElse("0.2.0-SNAPSHOT")
 
 spotless {
     kotlin {

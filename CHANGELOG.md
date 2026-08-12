@@ -1,6 +1,16 @@
 # Changelog
 
-## 0.1.0
+## Unreleased
+
+## 0.2.0 - 2026-08-12
+
+- Compile and publish against KMP Messages `0.2.0`, including its backend
+  synchronization, durable outbox retry, and reconciliation contracts.
+- Keep KMP Core and Compose Core pinned independently at `0.1.0`.
+- Force fresh instrumented Kotlin compilation for deterministic CodeQL
+  extraction.
+
+## 0.1.0 - 2026-08-10
 
 - Add the message list, composer, refresh, retry, and synchronization-state UI.
 - Add repository-backed presentation state and unidirectional message events.
