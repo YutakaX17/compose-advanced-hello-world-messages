@@ -10,7 +10,7 @@ binary-compatibility = "0.18.1"
 dependency-analysis = "3.17.0"
 dependency-check = "12.2.2"
 licensee = "1.14.1"
-coroutines = "1.10.2"
+coroutines = "1.11.0"
 
 [libraries]
 advanced-hello-world-kmp-core = { module = "io.github.yutakax17.advancedhelloworld:kmp-advanced-hello-world-core", version.ref = "core-family" }
