@@ -11,12 +11,11 @@ processing, and Android scheduling remain outside this package.
 
 ## Published dependency graph
 
-Version `0.1.0` compiles against the independently released `0.1.0` artifacts
-from:
+Version `0.2.0` compiles against independently released artifacts from:
 
-- `kmp-advanced-hello-world-core`
-- `compose-advanced-hello-world-core`
-- `kmp-advanced-hello-world-messages`
+- `kmp-advanced-hello-world-core` `0.1.0`
+- `compose-advanced-hello-world-core` `0.1.0`
+- `kmp-advanced-hello-world-messages` `0.2.0`
 
 Sibling composite builds are opt-in for local development:
 

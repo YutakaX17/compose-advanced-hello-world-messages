@@ -7,7 +7,7 @@ plugins {
 dependencies {
     implementation(
         "io.github.yutakax17.advancedhelloworld:" +
-            "compose-advanced-hello-world-messages-jvm:0.1.0-SNAPSHOT",
+            "compose-advanced-hello-world-messages-jvm:0.2.0-SNAPSHOT",
     )
     testImplementation(kotlin("test"))
     testImplementation("org.jetbrains.compose.ui:ui-test:1.11.1")

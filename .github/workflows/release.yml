@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: YutakaX17/kmp-advanced-hello-world-messages
-          ref: d7ce9a21953cb9854952ce80a25df8508b606ed5
+          ref: a867f2c7253ee1b682216716ecdba630f017a271
           path: kmp-advanced-hello-world-messages
       - uses: actions/setup-java@d7793b545071e98d581d3bf084a51c3213318a07 # v4
         with:
@@ -40,7 +40,7 @@ jobs:
         run: |
           ./kmp-advanced-hello-world-core/gradlew --no-daemon -p kmp-advanced-hello-world-core -PreleaseVersion=0.1.0 :core:publishToMavenLocal
           ./compose-advanced-hello-world-core/gradlew --no-daemon -p compose-advanced-hello-world-core -PreleaseVersion=0.1.0 :ui:publishToMavenLocal
-          ./kmp-advanced-hello-world-messages/gradlew --no-daemon -p kmp-advanced-hello-world-messages -PreleaseVersion=0.1.0 :messages:publishToMavenLocal
+          ./kmp-advanced-hello-world-messages/gradlew --no-daemon -p kmp-advanced-hello-world-messages -PreleaseVersion=0.2.0 :messages:publishToMavenLocal
       - name: Verify tag and build package
         working-directory: compose-advanced-hello-world-messages
         env:
